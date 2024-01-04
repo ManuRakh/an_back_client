@@ -28,6 +28,14 @@ const Requests = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    sender_academy: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    receiving_academy: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    }
   },
   {
     timestamps: true,

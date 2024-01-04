@@ -14,6 +14,22 @@ const createRequest = async (params) => {
   return request ? request.get() : null; 
 };
 
+const updateRequest = async (params, id) => {
+  const updatedRequest = await requestModel.update({
+    ...params,
+  }, {
+      where :{
+        id: {
+          [Op.eq]: id
+        }
+      }
+  }, {
+    returning: true,
+  });
+
+  return updatedRequest;
+}
+
 const fetchRequestByWorker = async (workerId) => {
   const foundRequest = await requestModel.findOne({
     where :{
@@ -26,8 +42,34 @@ const fetchRequestByWorker = async (workerId) => {
   return foundRequest ? foundRequest.get() : null;
 }
 
+const fetchIncomingRequests = async () => {
+  const foundRequest = await requestModel.findAll({
+    where :{
+      receiving_academy: {
+        [Op.eq]: "math"
+      }
+    }
+  });
 
+  return foundRequest.map((request) => request.toJSON());
+}
+
+const getRequest = async (id) => {
+  const foundRequest = await requestModel.findOne({
+    where :{
+      id: {
+        [Op.eq]: id
+      }
+    }
+  });
+
+  return foundRequest ? foundRequest.get() : null;
+
+}
 module.exports = {
   createRequest,
   fetchRequestByWorker,
+  fetchIncomingRequests,
+  updateRequest,
+  getRequest,
 };

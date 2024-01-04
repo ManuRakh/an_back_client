@@ -22,6 +22,12 @@ module.exports = {
       status: {
         type: Sequelize.STRING,
       },
+      sender_academy: {
+        type: Sequelize.STRING,
+      },
+      receiving_academy: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
