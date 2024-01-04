@@ -18,12 +18,15 @@ const Requests = sequelize.define(
     },
     worker_id: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     user_id: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     status: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
   },
   {
