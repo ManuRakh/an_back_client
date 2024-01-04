@@ -16,6 +16,9 @@ module.exports = {
       spec: {
         type: Sequelize.STRING,
       },
+      academyName: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

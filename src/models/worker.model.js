@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 const {sequelize} = require("../sequilize.db");
 
 const Worker = sequelize.define(
-  "workers",
+  "worker",
   {
     id: {
       type: DataTypes.UUID,
@@ -22,10 +22,14 @@ const Worker = sequelize.define(
       type: DataTypes.STRING(128),
       allowNull: false,
     },
+    academyName: {
+      type: DataTypes.STRING(128),
+      allowNull: false,
+    },
   },
   {
     timestamps: true,
-    tableName: "workers",
+    tableName: "worker",
   },
 );
 
