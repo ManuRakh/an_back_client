@@ -54,6 +54,18 @@ const fetchIncomingRequests = async () => {
   return foundRequest.map((request) => request.toJSON());
 }
 
+const fetchOutcomingRequests = async () => {
+  const foundRequest = await requestModel.findAll({
+    where :{
+      sender_academy: {
+        [Op.eq]: "math"
+      }
+    }
+  });
+
+  return foundRequest.map((request) => request.toJSON());
+}
+
 const getRequest = async (id) => {
   const foundRequest = await requestModel.findOne({
     where :{
@@ -72,4 +84,5 @@ module.exports = {
   fetchIncomingRequests,
   updateRequest,
   getRequest,
+  fetchOutcomingRequests,
 };

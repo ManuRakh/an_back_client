@@ -60,6 +60,19 @@ const fetchIncomingRequests = async (req, res) => {
   }
 }
 
+const fetchOutcomingRequests = async (req, res) => {
+  try {
+    const request = await requestsService.fetchOutcomingRequests();
+
+    res.jsonp({
+      error: "",
+      data: { result: request },
+    });
+  } catch (e) {
+    res.status(400).send({ error: e.message, data: {} });
+  }
+
+}
 const getRequest = async (req, res) =>{
   try {
     const { params } = req;
@@ -85,4 +98,5 @@ module.exports = {
   fetchIncomingRequests,
   updateRequest,
   getRequest,
+  fetchOutcomingRequests,
 };
