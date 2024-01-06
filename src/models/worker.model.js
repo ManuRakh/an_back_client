@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 const {sequelize} = require("../sequilize.db");
-
+const User = require("./user.model");
 const Worker = sequelize.define(
   "worker",
   {
@@ -26,11 +26,26 @@ const Worker = sequelize.define(
       type: DataTypes.STRING(128),
       allowNull: false,
     },
+    user_id: {
+      type: DataTypes.UUID,
+      allowNull: false,
+    },
   },
   {
     timestamps: true,
     tableName: "worker",
   },
 );
+
+Worker.belongsTo(User, {
+  foreignKey: 'user_id',
+  as: 'user',
+});
+
+User.hasOne(Worker, {
+  foreignKey: 'user_id',
+  as: 'worker',
+});
+
 
 module.exports = Worker;

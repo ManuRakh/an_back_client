@@ -11,6 +11,8 @@ const createRequest = async (params) => {
     returning: true,
   });
 
+  console.log("Request created");
+
   return request ? request.get() : null; 
 };
 
@@ -26,6 +28,8 @@ const updateRequest = async (params, id) => {
   }, {
     returning: true,
   });
+
+  console.log("Request updated");
 
   return updatedRequest;
 }

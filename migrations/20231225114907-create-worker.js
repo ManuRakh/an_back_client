@@ -19,6 +19,9 @@ module.exports = {
       academyName: {
         type: Sequelize.STRING,
       },
+      user_id: {
+        type: Sequelize.UUID,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

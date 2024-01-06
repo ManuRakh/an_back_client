@@ -6,6 +6,10 @@ const workers = require("./modules/workers.module/routes");
 const users = require("./modules/users.module/routes");
 const { login, registerUser } = require("./modules/auth.module/login.controller");
 const cors = require('cors');
+const { receiveMessage } = require("./modules/rabbit/receive");
+const { sendMessage } = require("./modules/rabbit/send");
+const dotenv = require("dotenv");
+dotenv.config();
 
 app.use(express.json({ limit: "200kb" }));
 app.use(express.urlencoded({ extended: true }));
@@ -23,4 +27,7 @@ app.use("/users", users);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
+    console.log(`Server is running on http://localhost:${port}`);
+
+    receiveMessage(process.env.service_queue);
 });
