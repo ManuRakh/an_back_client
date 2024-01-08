@@ -12,6 +12,10 @@ const Requests = sequelize.define(
       primaryKey: true,
       allowNull: false,
     },
+    identifier: {
+      type: DataTypes.UUID,
+      allowNull: false,
+    },
     description: {
       type: DataTypes.STRING(50000),
       allowNull: false,

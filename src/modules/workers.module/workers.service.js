@@ -3,12 +3,29 @@ const { Op } = require("sequelize");
 
 const dotenv = require("dotenv");
 dotenv.config();
-const getAllWorkers = async () => {
-    const foundDoctors = await workerModel.findAll({
-        where: {
-        }
-      });
-    return foundDoctors.map((doctor) => doctor.toJSON());
+const getAllWorkers = async (query) => {
+  const { user_id: userId, all } = query;
+
+  let searchRequest = {};
+  
+  if (userId && all !== "true") {
+    searchRequest = {
+    where: {
+      user_id: {
+      [Op.eq]: userId,
+      }
+    }
+  }
+  const foundDoctors =await  workerModel.findOne(searchRequest);
+
+  return [foundDoctors];
+} else {
+  const foundDoctors = await workerModel.findAll(searchRequest);
+  return foundDoctors.map((doctor) => doctor.toJSON());
+
+}
+
+    return foundDoctors;
 }   
 
 const getWorkerById = async (workerId) => {

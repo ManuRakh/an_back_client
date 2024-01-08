@@ -2,7 +2,9 @@ const workersService = require("./workers.service");
 
 const getAllWorkers = async (req,res) => {
     try {
-        const allWorkers = await workersService.getAllWorkers();
+      const { query } = req;
+
+        const allWorkers = await workersService.getAllWorkers(query);
     
         res.jsonp({
           error: "",

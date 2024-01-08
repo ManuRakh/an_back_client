@@ -10,6 +10,9 @@ module.exports = {
       id: {
         type: Sequelize.UUID,
       },
+      identifier: {
+        type: Sequelize.UUID,
+      },
       description: {
         type: Sequelize.STRING,
       },

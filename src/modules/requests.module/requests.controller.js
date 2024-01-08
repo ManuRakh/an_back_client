@@ -49,7 +49,9 @@ const fetchRequestByWorker = async (req, res) => {
 
 const fetchIncomingRequests = async (req, res) => {
   try {
-    const request = await requestsService.fetchIncomingRequests();
+    const { query } = req;
+
+    const request = await requestsService.fetchIncomingRequests(query);
 
     res.jsonp({
       error: "",
@@ -62,7 +64,8 @@ const fetchIncomingRequests = async (req, res) => {
 
 const fetchOutcomingRequests = async (req, res) => {
   try {
-    const request = await requestsService.fetchOutcomingRequests();
+    const { query } = req;
+    const request = await requestsService.fetchOutcomingRequests(query);
 
     res.jsonp({
       error: "",

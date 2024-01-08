@@ -1,4 +1,6 @@
 const { Op } = require("sequelize");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const workerModel = require("../../models/worker.model");
 const requestModel = require("../../models/request.model");
@@ -17,6 +19,7 @@ const createRequest = async (params) => {
 };
 
 const updateRequest = async (params, id) => {
+
   const updatedRequest = await requestModel.update({
     ...params,
   }, {
@@ -46,26 +49,59 @@ const fetchRequestByWorker = async (workerId) => {
   return foundRequest ? foundRequest.get() : null;
 }
 
-const fetchIncomingRequests = async () => {
-  const foundRequest = await requestModel.findAll({
-    where :{
+const fetchIncomingRequests = async (query) => {
+  const { user_id, isAdmin } = query;
+
+  if (!user_id) throw new Error(`User ${user_id} does not exist`);
+
+  let searchRequest = {};
+  if (isAdmin) searchRequest = {
+    where : {
       receiving_academy: {
-        [Op.eq]: "math"
+        [Op.eq]: process.env.current_academy
       }
     }
-  });
+  };
+  else searchRequest = {
+    where : {
+      receiving_academy: {
+        [Op.eq]: process.env.current_academy
+      },
+      user_id: {
+        [Op.eq]: user_id,
+      }
+    }
+  };
+  const foundRequest = await requestModel.findAll(searchRequest);
 
   return foundRequest.map((request) => request.toJSON());
 }
 
-const fetchOutcomingRequests = async () => {
-  const foundRequest = await requestModel.findAll({
-    where :{
+const fetchOutcomingRequests = async (query) => {
+  const { user_id, isAdmin } = query;
+
+  if (!user_id) throw new Error(`User ${user_id} does not exist`);
+
+  let searchRequest = {};
+  if (isAdmin) searchRequest = {
+    where : {
       sender_academy: {
-        [Op.eq]: "math"
+        [Op.eq]: process.env.current_academy
       }
     }
-  });
+  };
+  else searchRequest = {
+    where : {
+      sender_academy: {
+        [Op.eq]: process.env.current_academy
+      },
+      user_id: {
+        [Op.eq]: user_id,
+      }
+    }
+  };
+
+  const foundRequest = await requestModel.findAll(searchRequest);
 
   return foundRequest.map((request) => request.toJSON());
 }
