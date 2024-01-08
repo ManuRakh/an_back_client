@@ -13,7 +13,7 @@ const createRequest = async (params) => {
     returning: true,
   });
 
-  console.log("Request created");
+  console.log(params);
 
   return request ? request.get() : null; 
 };
@@ -55,23 +55,26 @@ const fetchIncomingRequests = async (query) => {
   if (!user_id) throw new Error(`User ${user_id} does not exist`);
 
   let searchRequest = {};
-  if (isAdmin) searchRequest = {
+  if (isAdmin == "true") {
+    searchRequest = {
     where : {
       receiving_academy: {
         [Op.eq]: process.env.current_academy
       }
     }
-  };
+  }
+  }
   else searchRequest = {
     where : {
       receiving_academy: {
         [Op.eq]: process.env.current_academy
       },
-      user_id: {
+      receiver_user_id: {
         [Op.eq]: user_id,
       }
     }
   };
+
   const foundRequest = await requestModel.findAll(searchRequest);
 
   return foundRequest.map((request) => request.toJSON());
@@ -82,15 +85,17 @@ const fetchOutcomingRequests = async (query) => {
 
   if (!user_id) throw new Error(`User ${user_id} does not exist`);
 
+  
   let searchRequest = {};
-  if (isAdmin) searchRequest = {
+
+  if (isAdmin == "true") {searchRequest = {
     where : {
       sender_academy: {
         [Op.eq]: process.env.current_academy
       }
     }
-  };
-  else searchRequest = {
+  }} else {
+    searchRequest = {
     where : {
       sender_academy: {
         [Op.eq]: process.env.current_academy
@@ -99,8 +104,10 @@ const fetchOutcomingRequests = async (query) => {
         [Op.eq]: user_id,
       }
     }
+  }
   };
 
+  
   const foundRequest = await requestModel.findAll(searchRequest);
 
   return foundRequest.map((request) => request.toJSON());

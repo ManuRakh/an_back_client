@@ -14,12 +14,15 @@ module.exports = {
         type: Sequelize.UUID,
       },
       description: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(12000),
       },
       worker_id: {
         type: Sequelize.STRING,
       },
       user_id: {
+        type: Sequelize.STRING,
+      },
+      receiver_user_id: {
         type: Sequelize.STRING,
       },
       status: {
@@ -42,6 +45,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("appointments");
+    await queryInterface.dropTable("requests");
   },
 };

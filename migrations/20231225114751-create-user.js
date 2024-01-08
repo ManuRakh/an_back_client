@@ -1,6 +1,6 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("requests", {
+    await queryInterface.createTable("users", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,25 +10,28 @@ module.exports = {
       id: {
         type: Sequelize.UUID,
       },
-      identifier: {
-        type: Sequelize.UUID,
-      },
-      description: {
-        type: Sequelize.STRING(12000),
-      },
-      worker_id: {
+      name: {
         type: Sequelize.STRING,
       },
-      user_id: {
+      phone: {
+        type: Sequelize.STRING,
+        unique: true
+      },
+      email: {
+        type: Sequelize.STRING,
+        unique: true
+      },
+      telegram: {
         type: Sequelize.STRING,
       },
-      status: {
+      role: {
         type: Sequelize.STRING,
       },
-      sender_academy: {
+      username: {
         type: Sequelize.STRING,
+        unique: true
       },
-      receiving_academy: {
+      password: {
         type: Sequelize.STRING,
       },
       createdAt: {
@@ -42,6 +45,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("appointments");
+    await queryInterface.dropTable("users");
   },
 };

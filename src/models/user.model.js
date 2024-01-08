@@ -18,6 +18,10 @@ const User = sequelize.define(
       type: DataTypes.STRING(128),
       allowNull: false,
     },
+    email: {
+      type: DataTypes.STRING(128),
+      allowNull: true,
+    },
     telegram: {
       type: DataTypes.STRING(128),
       allowNull: true,

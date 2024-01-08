@@ -28,6 +28,10 @@ const Requests = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    receiver_user_id: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     status: {
       type: DataTypes.STRING,
       allowNull: false,
