@@ -12,7 +12,8 @@ dotenv.config();
 //     dialect: "mysql"
 //   }
 // });
-const sequelize = new Sequelize(process.env.database, process.env.db_username, undefined, {
+console.log(process.env.database, process.env.db_username, process.env.password)
+const sequelize = new Sequelize(process.env.database, process.env.db_username, process.env.password, {
   host: process.env.host,
   dialect: "mysql"
 });
